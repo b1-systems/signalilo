@@ -131,8 +131,8 @@ func Webhook(w http.ResponseWriter, r *http.Request, c config.Configuration) {
 
 		// Update or create service in icinga
 		svc, err := updateOrCreateService(icinga, serviceHost, serviceName, displayName, alert, c)
-		if err != nil {
-			l.Errorf("Error in checkOrCreateService for %v: %v", serviceName, err)
+		if err != nil && !strings.Contains(err.Error(), "Attribute 'host_name' could not be set") {
+			l.Errorf("Error in updateOrCreateService for %v: %v", serviceName, err)
 		}
 		// If we got an emtpy service object, the service was not
 		// created, don't try to call process-check-result
