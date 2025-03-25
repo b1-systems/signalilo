@@ -3,6 +3,7 @@ on:
   push:
     branches:
     - master
+    - host_name-workaround
     tags:
     - v*
 
